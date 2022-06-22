@@ -1,0 +1,11 @@
+
+.signup-form {
+    margin: 100px;
+    width: 30%;
+  }
+
+.card-header{
+  background-color: blue;
+  color: white;
+  text-align: center;
+}

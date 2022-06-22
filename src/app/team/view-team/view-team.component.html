@@ -1,0 +1,50 @@
+<div class="container">
+      <hr />
+      <div class="col-md-12">
+        <div class="row team">
+          <div class="col-md-12">
+            <span>
+              <span class="game-text"><a class="team-url" href="">LFG: {{team.gameTitle}}</a></span>
+              <span> . posted
+                by              
+                <a class="username" href="">{{team.teamLeader}}</a>
+              </span>
+            </span>
+            <hr />
+            <a routerLink="team.url" class="team-title">{{team.teamName}}</a>
+            <div>
+              <p class="team-text" [innerHtml]="team.description"></p>
+            </div>
+            <h3>Current Members</h3>
+            <div *ngFor="let member of members">
+              <a href="{{member.url}}">{{member.username}}</a>
+            </div>
+            <div *ngIf="team.teamMembers.length < team.teamSize">
+              <button (click)="joinTeam()">Join Team</button>
+            </div>
+            <div class="col-md-6 team-comment" *ngIf="">
+              <form [formGroup]="commentForm" (ngSubmit)="teamComment()">
+                <div class="form-group">
+                  <textarea class="form-control" [formControlName]="'text'" placeholder="Wanna Play?"></textarea>
+                </div>
+                <button type="submit" class="login float-right">Comment</button>
+              </form>
+            </div>
+            <div style="margin-top: 60px;" *ngFor="let comment of comments">
+              <div class="comment">
+                <div class="username">
+                  <a routerLink="/user/comment.username">{{comment.username}}</a>
+                </div>
+                <div>
+                  <p>{{comment.duration}}</p>
+                </div>
+                <b>{{comment.text}}</b>
+              </div>
+              <button class="float-end btn-danger">Delete</button>
+              <button class="float-end btn-primary">Edit</button>
+              
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>

@@ -1,0 +1,42 @@
+<div class="container">
+    <div class="row">
+      <hr />
+      <div class="create-post-container col-md-9">
+        <form class="post-form" [formGroup]="createTeamForm" (ngSubmit)="createTeam()">
+          <div class="form-group">
+            <div class="create-post-heading">Create Team</div>
+            <hr />
+            <input type="text" [formControlName]="'teamName'" class="form-control" style="margin-top: 5px"
+              placeholder="Title">
+            <select class="form-control" style="margin-top: 10px" [formControlName]="'gameTitle'">
+              <option value="" selected disabled>Select game</option>
+              <option *ngFor="let game of games">{{game.gameTitle}}</option>
+            </select>
+            <select class="form-control" style="margin-top:10px" [formControlName]="'description'">
+                <option value="" selected disabled>Select Team Size</option>
+                <option>1</option>
+                <option>2</option>
+                <option>3</option>
+                <option>4</option>
+                <option>5</option>
+                <option>6</option>
+            </select>
+            <select class="form-control" style="margin-top:10px" [formControlName]="'console'">
+                <option value="" selected disabled>Select Console</option>
+                <option>PC</option>
+                <option>Xbox</option>
+                <option>Playstation</option>
+                <option>Nintendo Switch</option>
+            </select>
+            
+            <span>
+              <div style="margin-top: 5px" class="float-right">
+                <button (click)="discardTeam()" class="btnDiscard">Discard</button>
+                <button class="btnCreatePost">Post</button>
+              </div>
+            </span>
+          </div>
+        </form>
+      </div>
+    </div>
+  </div>

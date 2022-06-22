@@ -1,0 +1,28 @@
+<div class="container">
+    <div>
+      Welcome <b>{{name}}</b>.<br /> You have created <b>{{teamLength}}</b> teams and commented
+      <b>{{commentLength}}</b> time(s).
+      You can check your Team and comment history below.
+    </div>
+    <hr />
+    <div>
+      Your Teams:
+    </div>
+    <app-team-tile [teams]="teams"></app-team-tile>
+    <hr />
+    <div>
+      Your Comments:
+    </div>
+    <div *ngFor="let comment of comments">
+      <div class="comment">
+        <div class="username">
+          <a routerLink="/user/comment.username">{{comment.username}}</a>
+        </div>
+        <div>
+          <p>{{comment.duration}}</p>
+        </div>
+        <b>{{comment.text}}</b>
+      </div>
+      <hr />
+    </div>
+  </div>

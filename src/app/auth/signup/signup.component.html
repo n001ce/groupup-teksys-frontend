@@ -1,0 +1,63 @@
+<div class="row pt-5">
+    <div class="col-md-5 col-sm-6 col-lg-4 mt-5 mx-auto">
+        <div class="card rounded-0 shadow">
+            <div class="card-header">
+                <h3 class="mb-0">Signup</h3>
+            </div>
+            <div class="card-body">
+                <form [formGroup]="signupForm" #formDir="ngForm" class="form" (ngSubmit)="signup()">
+                        <div class="form-group">
+                            <label for="email">Email</label>
+                            <input 
+                                formControlName = "email"
+                                id="email"
+                                type="text" 
+                                class="form-control rounded-0"
+                                required>
+                            <div *ngIf="signupForm.get('email')?.touched && signupForm.get('email')?.invalid">
+                                <span class="text-danger">Enter a valid email</span>
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <label for="username">Username</label>
+                            <input 
+                                formControlName = "username" 
+                                name="username" type="text" 
+                                class="form-control rounded-0" 
+                                required>
+                            <div *ngIf="signupForm.get('username')?.touched && signupForm.get('username')?.invalid">
+                                <span class="text-danger">Enter a valid Username</span>
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <label for="password">Password</label>
+                            <input formControlName="password" 
+                                name="password"
+                                id="password" 
+                                type="password" 
+                                class="form-control rounded-0" 
+                                required>
+                        </div>
+                        <div *ngIf="signupForm.get('password')?.touched && signupForm.get('password')?.invalid">
+                            <small class="text-danger">
+                                Password must contain:
+                                <li>1 Uppercase character</li>    
+                                <li>1 Lowercase character</li>    
+                                <li>1 Number</li>    
+                                <li>8 characters long</li>    
+                            </small>
+                        </div>
+                    <button
+                        type="submit"
+                        class="btn btn-primary float-right mt-3">
+                            Register
+                    </button>
+                    <button type="button"
+                        class="btn btn-default mt-3"
+                        (click)="formDir.resetForm([])"
+                        >Reset</button>
+                </form>
+            </div>
+        </div>
+    </div>
+</div>
