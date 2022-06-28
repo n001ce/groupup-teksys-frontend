@@ -32,7 +32,7 @@ export class CommentService{
     }
 
     deleteComment(comment: CommentPayload): Observable<any>{
-        return this.httpClient.post<any>('http://localhost:8080/api/comments/delete', comment)
+        return this.httpClient.delete<any>('http://localhost:8080/api/comments/delete/' + comment.id)
     }
 
     editComment(comment: CommentPayload): Observable<any>{
