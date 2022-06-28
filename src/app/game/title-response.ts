@@ -25,6 +25,7 @@ export interface Api {
         developers: [];
         publishers: [];
         esrb_rating: any;
+        isSaved:boolean;
         }
     ]
 }

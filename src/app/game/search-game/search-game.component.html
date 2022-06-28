@@ -1,51 +1,45 @@
-<div class="container">
+<div class="container ">
     <div class="row">
-      <div class="search-game-container">
-        <form class="search-form" [formGroup]="searchGameForm" (ngSubmit)="searchGame()">
-          <div class="form-group">
-            <div class="search-game-heading">Search For Game</div>
-            <hr />
-            <input type="text" [formControlName]="'gameTitle'" class="form-control" style="margin-top: 5px"
-              placeholder="Game Title">
-            <div>
-              <div style="margin-top: 5px" class="float-right">
-                <button (click)="discard()" class="btnDiscard">Discard</button>
-                <button class="btnSearchGame">Search</button>
-              </div>
-            </div>
-          </div>
-        </form>
-      </div>
-    <section class="mt-3 container" *ngIf="gameArray !== null" >
-        <div class="row">
-            <div class="container" >
-                <div class="row">
-                    <div class="col-md-3" *ngFor="let game of gameArray[0]">
-                        <div class="card shadow-lg">
-                            <img src={{game.background_image}} alt="" class="img-fluid">
-                            <div class="card-body">
-                                <p class="h3">{{game.name}}</p>
-                                <button class="btn btn-danger btn-sm" (click)="createGame(game.id)">Save Team</button>
-                            </div>
-                        </div>
-                    </div>
+        <div class="col-md-4 mb30">
+            <div class="card">
+
+                <div class="card-content profile-header">
+                    <div class="row">
+                        <form class="search-form" [formGroup]="searchGameForm" (ngSubmit)="searchGame()">
+
+                          <div class="col-md-12 mb20 form-group">
+                              <h6 style="text-align: center;">Search For A Game</h6>
+                              <input type="text" [formControlName]="'gameTitle'" class="form-control" style="margin-top: 5px"
+                                placeholder="Game Title">
+                          </div>
+                          <div class="col-md-12 mb20">
+                              <button class="btn btn-primary submit">Search</button>
+                          </div>
+                          <div class="col-md-12 mb20">
+                            <a (click)="discard()" class="btn btn-warning">Discard</a>                          
+                          </div>
+                        </form>
+                      </div>
                 </div>
+            </div>
+        </div>
+        <div class="col-md-8 mb30" *ngIf="gameArray !== null">
+            <div class="card">
+                            <ul class="activity-list list-unstyled" *ngFor="let game of gameArray[0]">
+                                <li class="clearfix">
+                                    <div class="act-content">
+                                        <h4>{{game.name}}</h4>
+                                        <img src="{{game.background_image}}" alt="" class="img-fluid">
+                                        <p>{{game.description}}</p>
+                                        <button class="btn btn-danger btn-sm" *ngIf="!game.isSaved" (click)="createGame(game.id)">Save Game</button>
+                                        <a class="btn btn-danger btn-sm" *ngIf="game.isSaved" href="/view-game/{{game.name}}">View Game</a>
+                                    </div>
+                                </li>
+                            </ul>
+                </div>
+            </div>
         </div>
     </div>
-    </section>
-      <div class="col-md-3">
-        <div class="sidebar">
-          <h5 class="guidelines">Searching For Game</h5>
-          <hr />
-          <ul>
-            <li>Enter game title in SearchBar</li>
-            <hr />
-            <li>Click Search</li>
-            <hr />
-            <li>Click Save on the result you want</li>
-            <hr />
-          </ul>
-        </div>
-      </div>
-    </div>
-  </div>
+
+
+

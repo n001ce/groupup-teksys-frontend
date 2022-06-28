@@ -1,4 +1,69 @@
-<div class="container">
+<section>
+  <div class="mask d-flex align-items-center gradient-custom-3">
+    <div class="container ">
+      <div class="row d-flex justify-content-center align-items-center">
+        <div class="col-12 col-md-9 col-lg-7 col-xl-5 col-xs-12">
+          <div class="card team-form" style="border-radius: 15px;">
+            <div class="card-body p-5">
+              <h2 class="text-uppercase text-center mb-5" style="color: white">Create A Team</h2>
+
+              <form form class="post-form " [formGroup]="createTeamForm" (ngSubmit)="createTeam()">
+
+                <div class="form-outline mb-4">
+                  <input type="text" [formControlName]="'teamName'" class="form-control" />
+                  <label class="form-label" for="floatingInput">Team Name</label>
+                  <!-- <div *ngIf="signupForm.get('email')?.touched && signupForm.get('email')?.invalid">
+                    <span class="text-danger">Enter a valid email</span>
+                  </div> -->
+                </div>
+
+                <div class="form-outline mb-4">
+                  <select class="form-control" style="margin-top: 10px" [formControlName]="'gameTitle'" *ngIf="gameTitle==null">
+                    <option value="" selected disabled>Select game</option>
+                    <option *ngFor="let game of games">{{game.gameTitle}}</option>
+                  </select>
+                    <!-- <div *ngIf="signupForm.get('username')?.touched && signupForm.get('username')?.invalid">
+                        <span class="text-danger">Enter a valid Username</span>
+                    </div> -->
+                </div>
+                <div class="form-outline mb-4">
+                  <select class="form-control" style="margin-top:10px" [formControlName]="'teamSize'">
+                    <option value="" selected disabled>Select Team Size</option>
+                    <option>1</option>
+                    <option>2</option>
+                    <option>3</option>
+                    <option>4</option>
+                    <option>5</option>
+                    <option>6</option>
+                </select>
+                </div>
+                <div class="form-outline mb-4">
+                  <select class="form-control" style="margin-top:10px" [formControlName]="'console'">
+                    <option value="" selected disabled>Select Console</option>
+                    <option>PC</option>
+                    <option>Xbox</option>
+                    <option>Playstation</option>
+                    <option>Nintendo Switch</option>
+                </select>
+                </div>
+                           
+                <div class="d-flex justify-content-center">
+                  <button (click)="discardTeam()" class="btn btn-warning btn-block btn-lg gradient-custom-4 text-body">Discard</button>
+                  <button class="btn btn-primary btn-block btn-lg gradient-custom-4 text-body">Post</button>
+                  <!-- <button type="button"
+                    class="btn btn-success btn-block btn-lg gradient-custom-4 text-body">Register</button> -->
+                </div>
+              </form>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+
+<!-- <div class="container">
     <div class="row">
       <hr />
       <div class="create-post-container col-md-9">
@@ -8,12 +73,12 @@
             <hr />
             <input type="text" [formControlName]="'teamName'" class="form-control" style="margin-top: 5px"
               placeholder="Title">
-            <select class="form-control" style="margin-top: 10px" [formControlName]="'gameTitle'">
+            <select class="form-control" style="margin-top: 10px" [formControlName]="'gameTitle'" *ngIf="gameTitle==null">
               <option value="" selected disabled>Select game</option>
               <option *ngFor="let game of games">{{game.gameTitle}}</option>
             </select>
-            <select class="form-control" style="margin-top:10px" [formControlName]="'description'">
-                <option value="" selected disabled>Select Team Size</option>
+            <select class="form-control" style="margin-top:10px" [formControlName]="'teamSize'">
+                <option selected disabled>Select Team Size</option>
                 <option>1</option>
                 <option>2</option>
                 <option>3</option>
@@ -39,4 +104,4 @@
         </form>
       </div>
     </div>
-  </div>
+  </div> -->

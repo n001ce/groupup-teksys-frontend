@@ -17,11 +17,13 @@ import { SearchGameComponent } from './game/search-game/search-game.component';
 import { ListGamesComponent } from './game/list-games/list-games.component';
 import { TokenInterceptor } from './token-interceptor';
 import { UserProfileComponent } from './auth/user-profile/user-profile.component';
-import { TeamTileComponent } from './shared/team-tile/team-tile.component';
-import { SideBarComponent } from './shared/side-bar/side-bar.component';
 import { GamePageComponent } from './game/game-page/game-page.component';
 import { FlexLayoutModule } from '@angular/flex-layout';
 import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
+import { ListTeamComponent } from './team/list-team/list-team.component';
+import { LandingComponent } from './landing/landing.component';
+import { DatePipe } from '@angular/common';
+
 
 @NgModule({
   declarations: [
@@ -35,9 +37,9 @@ import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
     ViewTeamComponent,
     ListGamesComponent,
     UserProfileComponent,
-    TeamTileComponent,
-    SideBarComponent,
     GamePageComponent,
+    ListTeamComponent,
+    LandingComponent,
 
   ],
   imports: [
@@ -53,7 +55,7 @@ import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
   ],
   providers: [
     {
-      provide: HTTP_INTERCEPTORS,
+      provide: [HTTP_INTERCEPTORS, DatePipe],
       useClass: TokenInterceptor,
       multi: true
     }

@@ -1,0 +1,28 @@
+video
+{
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  min-height: 100%;
+  object-fit: cover;
+  opacity: 0.8;
+}
+.overlay
+{
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background: #464747;
+  mix-blend-mode: overlay;
+}
+
+.team-form{
+    background-color: rgba(0, 0, 0, 0.541);
+}
+
+label{
+    color: white;
+}

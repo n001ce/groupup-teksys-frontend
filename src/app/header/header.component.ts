@@ -48,4 +48,5 @@ export class HeaderComponent implements OnInit {
     this.router.navigateByUrl('/create-team')
   }
 
+  public isMenuCollapsed = true;
 }

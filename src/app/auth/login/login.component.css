@@ -1,5 +1,7 @@
-.login-section{
-    margin: 100px;
+@import url('https://fonts.googleapis.com/css?family=Poppins:200,300,400,500,600,700,800,900&display=swap');
+*
+{
+    font-family: 'Poppins', sans-serif;
 }
 
 .login-failed, .register-success{
@@ -16,4 +18,25 @@
     margin-top: 5px;
     font-weight: bold;    
     color: aliceblue;
+}
+
+video
+{
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  min-height: 100%;
+  object-fit: cover;
+  opacity: 0.8;
+}
+.overlay
+{
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background: #464747;
+  mix-blend-mode: overlay;
 }

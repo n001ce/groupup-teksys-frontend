@@ -1,6 +1,7 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
 import {FormGroup, FormControl, Validators} from '@angular/forms';
 import { ActivatedRoute, Router } from '@angular/router';
+import { SwitchBaseProps } from '@material-ui/core/internal/SwitchBase';
 import { ToastrService } from 'ngx-toastr';
 import { throwError } from 'rxjs';
 import { AuthService } from '../shared/auth.service';
@@ -12,7 +13,7 @@ import { LoginRequestPayload } from './login-request.payload';
   styleUrls: ['./login.component.css']
 })
 export class LoginComponent implements OnInit {
-
+  @Output() myClick = new EventEmitter<boolean>();
   loginForm!: FormGroup
   loginRequestPayload: LoginRequestPayload
   registerSuccessMessage: string;
@@ -40,13 +41,16 @@ export class LoginComponent implements OnInit {
       }
     })
   }
+  onMyClick(){
+    this.myClick.emit()
+  }
   login(){
     this.loginRequestPayload.username = this.loginForm.get('username')?.value;
     this.loginRequestPayload.password = this.loginForm.get('password')?.value;
 
     this.authService.login(this.loginRequestPayload).subscribe(data=>{
       this.isError = false;
-      this.router.navigateByUrl('');
+      this.router.navigateByUrl('user-profile/' + this.loginRequestPayload.username);
       this.toastr.success('Login Successful');
     }, error=>{
       this.isError = true;

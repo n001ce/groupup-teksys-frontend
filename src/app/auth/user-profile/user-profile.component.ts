@@ -1,11 +1,12 @@
-import { Component, OnInit } from '@angular/core';
+import { formatDate } from '@angular/common';
+import { Component, Inject, LOCALE_ID, OnInit } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
-import { CommentPayload } from 'src/app/comment/comment.payload';
-import { CommentService } from 'src/app/comment/comment.service';
-import { GameModel } from 'src/app/game/game-response';
-import { GameService } from 'src/app/game/game.service';
+import { throwError } from 'rxjs';
 import { TeamModel } from 'src/app/shared/team-model';
-import { TeamService } from 'src/app/shared/team.service';
+import { Member } from 'src/app/team/view-team/member.payload';
+import { AuthService } from '../shared/auth.service';
+import { ProfilePayload } from './profile.payload';
+import { ProfileService } from './profile.service';
 
 @Component({
   selector: 'app-user-profile',
@@ -14,38 +15,64 @@ import { TeamService } from 'src/app/shared/team.service';
 })
 export class UserProfileComponent implements OnInit {
   name: string;
-  teams: TeamModel[];
-  comments: CommentPayload[];
-  games: GameModel[];
-  gamesLength: number;
-  teamLength: number;
-  commentLength: number;
+  profile: ProfilePayload;
+  isOwner: boolean;
+  activeTab: string;
+  openform: boolean;
+  members: Member[];
 
   
-  constructor(private activatedRoute: ActivatedRoute, private teamService: TeamService, private commentService: CommentService, private gameService: GameService) {
+  constructor(private activatedRoute: ActivatedRoute, private profileService: ProfileService, private authService: AuthService) {
     this.name = this.activatedRoute.snapshot.params['name'];
-
-    this.teamService.getAllTeamsByUser(this.name).subscribe(data =>{
-      this.teams = data;
-      this.teamLength = data.length;
-    })
-
-    this.commentService.getAllCommentsByUser(this.name).subscribe((data: any[]) => {
-      this.comments = data;
-      this.commentLength = data.length;
-    });
-
-    this.gameService.getAllGamesByUser(this.name).subscribe((data: any[])=>{
-      this.games = data;
-      this.gamesLength = data.length;
-    })
-
-    
-
-
+    this.activeTab='t1'
    }
 
+
   ngOnInit(): void {
+    this.userAuth()
+    this.getProfile()
+    
+  }
+
+  private userAuth(){
+    if(this.authService.getUserName() === this.name){
+      this.isOwner = true
+    }else{
+      this.isOwner = false;
+    }
+  }
+
+  getMembers(joinedTeams: TeamModel[]){
+    joinedTeams.forEach(team=>{
+      this.members = team.teamMembers
+    })
+  }
+
+  toggle1(activeTab: string, $event: MouseEvent): void{
+    $event.preventDefault();
+    this.activeTab = activeTab;
+  }
+
+  toggle2(activeTab : string, $event: MouseEvent): void{
+    $event.preventDefault();
+    this.activeTab = activeTab;
+  }
+  toggle3(activeTab : string, $event: MouseEvent): void{
+    $event.preventDefault();
+    this.activeTab = activeTab;
+  }
+  toggle4(activeTab : string, $event: MouseEvent): void{
+    $event.preventDefault();
+    this.activeTab = activeTab;
+  }
+
+  private getProfile(){
+    this.profileService.getProfile(this.name).subscribe(data=>{
+      this.profile=data
+      console.log(data)
+    }, error=>{
+      throwError(error)
+    });
   }
 
 }

@@ -22,7 +22,7 @@ export class GameService{
     }
 
     createGame(gameModel: GameModel): Observable<GameModel>{
-        return this.http.post<GameModel>('http://localhost:8080/api/games',
+        return this.http.post<GameModel>(`http://localhost:8080/api/games`,
         gameModel);
     }
 
@@ -38,8 +38,11 @@ export class GameService{
         return this.http.get<GameModel[]>('http://localhost:8080/api/games/by-user/' + name);
     }
 
-    followGame(gameModel : GameModel): Observable<GameModel>{
-        return this.http.post<GameModel>("http://localhost:8080/api/games/followGame", gameModel)
+    followGame(gameModel : GameModel, name: String): Observable<GameModel>{
+        return this.http.put<GameModel>(`http://localhost:8080/api/games/${name}`, gameModel)
     }
     
+    removeGame(gameModel: GameModel, userName: string): Observable<GameModel>{
+        return this.http.post<GameModel>(`http://localhost:8080/api/games/unfollow/${userName}`, gameModel)
+    }
 }

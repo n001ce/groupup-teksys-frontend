@@ -1,7 +1,6 @@
 import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { Observable } from 'rxjs';
-import { GameModel } from '../game/game-response';
 import { CreateTeamPayload } from '../team/create-team/create-team.payload';
 import { Member } from '../team/view-team/member.payload';
 import {TeamModel} from './team-model';
@@ -17,8 +16,8 @@ export class TeamService {
     return this.http.get<Array<TeamModel>>('http://localhost:8080/api/team')
   }
 
-  createTeam(teamPayload: CreateTeamPayload): Observable<any>{
-    return this.http.post('http://localhost:8080/api/team/', teamPayload)
+  createTeam(teamPayload: CreateTeamPayload, username: string): Observable<any>{
+    return this.http.post(`http://localhost:8080/api/team/${username}`, teamPayload)
   }
 
   getTeam(id: number): Observable<TeamModel>{
@@ -29,8 +28,8 @@ export class TeamService {
     return this.http.get<TeamModel[]>('http://localhost:8080/api/team/by-user/' + name);
   }
 
-  getTeamsByGame(gameTitle: string): Observable<TeamModel[]>{
-    return this.http.get<TeamModel[]>(`http://localhost:8080/api/team/game/${gameTitle}`)
+  getTeamsByGame(gameId: number): Observable<TeamModel[]>{
+    return this.http.get<TeamModel[]>(`http://localhost:8080/api/team/game/${gameId}`)
   }
 
   joinTeam(teamId: number, username: String, team: CreateTeamPayload): Observable<any>{
@@ -39,5 +38,9 @@ export class TeamService {
 
   getTeamMembers(teamId: number): Observable<Member[]>{
     return this.http.get<Member[]>(`http://localhost:8080/api/team/members/${teamId}`)
+  }
+
+  deleteTeam(team : TeamModel):Observable<any>{
+    return this.http.post('http://localhost:8080/api/team/deleteTeam', team)
   }
 }

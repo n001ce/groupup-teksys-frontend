@@ -10,13 +10,17 @@ import { ListGamesComponent } from './game/list-games/list-games.component';
 import { CreateTeamComponent } from './team/create-team/create-team.component';
 import { SearchGameComponent } from './game/search-game/search-game.component';
 import { GamePageComponent } from './game/game-page/game-page.component';
+import { ListTeamComponent } from './team/list-team/list-team.component';
+import { LandingComponent } from './landing/landing.component';
 
 const routes: Routes = [
-  {path: '', component: HomeComponent},
+  {path: '', component: LandingComponent},
+  {path: 'home', component: HomeComponent, canActivate:[AuthGuard]},
   {path: 'view-team/:id', component: ViewTeamComponent, canActivate:[AuthGuard]},
   {path: 'user-profile/:name', component: UserProfileComponent, canActivate: [AuthGuard]},
-  {path: 'list-games', component: ListGamesComponent},
-  {path: 'view-game/:id', component:GamePageComponent},
+  {path: 'list-games', component: ListGamesComponent, canActivate:[AuthGuard]},
+  {path: 'list-teams', component: ListTeamComponent, canActivate:[AuthGuard]},
+  {path: 'view-game/:id', component:GamePageComponent, canActivate:[AuthGuard]},
   {path: 'create-team', component: CreateTeamComponent, canActivate: [AuthGuard]},
   {path: 'search-game', component: SearchGameComponent, canActivate: [AuthGuard]},
   {path: 'sign-up', component: SignupComponent},

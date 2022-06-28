@@ -1,9 +1,161 @@
 <div class="container">
+  <div class="row">
+    <div class="col-md-4 mb30">
+      <div class="card">
+        <div class="card-content pt20 pb20 profile-header">
+          <img src="{{game.background_image}}" alt="" class="img-fluid">
+          <h4 class="card-title text-center mb20">{{game.gameTitle.toUpperCase()}}</h4>
+          <hr>
+          <div class="row">
+            <div class="col-md-3 mb20">
+              <h6 style="text-align: center;">{{game.numberOfUsers}}</h6>
+              <h6 style="text-align: center;" class="text-small text-muted">Collected</h6>
+            </div>
+            <div class="col-md-3 mb20">
+              <h6 style="text-align: center;">{{game.numberOfTeams}}</h6>
+              <h6 style="text-align: center;" class="text-small text-muted">Teams</h6>
+            </div>
+          </div>
+          <hr>
+        </div>
+      </div>
+      <!-- <div class="card mt-4">
+        <div class="card-header" style="text-align: center">Create Team</div>
+        <form form class="post-form "  [formGroup]="createTeam.createTeamForm" (ngSubmit)="createTeamFromGame()">
+
+          <div class="form-outline mb-4 col-8 mt-4 offset-2">
+            <input type="text" [formControlName]="'teamName'" class="form-control" />
+            <label class="form-label" for="floatingInput">Team Name</label>
+          </div>
+          <div class="form-outline mb-4 col-8 mt-4 offset-2">
+            <select class="form-control" style="margin-top:10px" [formControlName]="'teamSize'">
+              <option value="" selected disabled>Select Team Size</option>
+              <option>1</option>
+              <option>2</option>
+              <option>3</option>
+              <option>4</option>
+              <option>5</option>
+              <option>6</option>
+          </select>
+          </div>
+          <div class="form-outline mb-4 col-8 mt-4 offset-2">
+            <select class="form-control" style="margin-top:10px" [formControlName]="'console'">
+              <option value="" selected disabled>Select Console</option>
+              <option>PC</option>
+              <option>Xbox</option>
+              <option>Playstation</option>
+              <option>Nintendo Switch</option>
+          </select>
+          </div>
+                     
+          <div class="d-flex justify-content-center">
+            <button class="btn btn-primary btn-block btn-lg gradient-custom-4 text-body">Post</button>
+            <button type="button"
+              class="btn btn-success btn-block btn-lg gradient-custom-4 text-body">Register</button>
+          </div>
+        </form>      
+      </div> -->
+    </div>
+    <div class="col-md-8 mb30">
+      <div class="card">
+        <div class="card-header">{{game.description}}</div>
+        <div id="card-body">
+          <div class="tab-content admin-tab-content py-4"  >
+              <ul class="activity-list list-unstyled" *ngFor="let team of teams" >
+                <li class="clearfix" >
+                  <div class="act-content">
+                    <div class="font400">
+                      <a class="font600" href="view-team/{{team.teamId}}" class="font600">{{team.teamName}}</a>
+                    </div>
+                    <div class="font400">Team Leader: {{team.teamLeader}}</div>
+                    <div class="text-small">Created: {{team.createdDate | date}}</div>
+                    <div class="text-small">Requested Members: {{team.teamSize}}</div>
+                    <div class="text-small">Joined Members: {{team.teamMembers.length}}</div>
+                  </div>
+                </li>
+              </ul>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+ 
+ <!-- <section class="h-100 gradient-custom-2">
+  <div class="container py-5 h-100">
+    <div class="row d-flex justify-content-center align-items-center h-100">
+      <div class="col col-lg-9 col-xl-7">
+        <div class="card">
+          <div class="rounded-top text-white d-flex flex-row" style="background-image:{{game.background_image}}">
+              <img src="{{game.background_image}}"
+                alt="Generic placeholder image" class="img-fluid">
+          </div>
+          <div class="p-4 text-black" style="background-color: #f8f9fa;">
+            <div class="d-flex justify-content-start text-center">
+              <div>
+                <p class="mb-1 h5">{{game.gameTitle}}</p>
+              </div>
+            </div>
+            <div class="d-flex justify-content-end text-center py-1">
+              <div>
+                <p class="mb-1 h5">253</p>
+                <p class="small text-muted mb-0">Teams</p>
+              </div>
+              <div class="px-3">
+                <p class="mb-1 h5">1026</p>
+                <p class="small text-muted mb-0">Collected</p>
+              </div>
+              <div>
+                <p class="mb-1 h5">478</p>
+                <p class="small text-muted mb-0">Release Date</p>
+              </div>
+            </div>
+          </div>
+          <div class="card-body p-4 text-black">
+            <div class="d-flex justify-content-between align-items-center mb-4">
+              <p class="lead fw-normal mb-0">Teams</p>
+            </div>
+            <div class="row g-2" *ngFor="let team of teams">
+              <div class="card">
+                <div class="bg-image hover-overlay ripple" data-mdb-ripple-color="light">
+                  <img
+                  src=""
+                  class="img-fluid"
+                  />
+                  <a href="#!">
+                    <div class="mask" style="background-color: rgba(251, 251, 251, 0.15);"></div>
+                  </a>
+                </div>
+                <div class="card-body">
+                  <h5 class="card-title" style="color:white">{{team.teamName}}</h5>
+                  <p class="card-text">
+                    posted by: {{team.teamLeader}}<br>team size : {{team.teamMembers.length}}<br>needed: {{team.teamSize - team.teamMembers.length}}
+                  </p>
+                  <a href="/view-team/{{team.teamId}}" class="btn btn-primary">View Team</a>
+                </div>
+              </div>
+            </div>
+          </div>
+          <div class="card-body p-4 text-black">
+            <div class="d-flex justify-content-between align-items-center mb-4">
+              <p class="lead fw-normal mb-0">Create Team</p>
+            </div>
+            <app-create-team [gameTitle]="this.gameTitle"></app-create-team>
+          </div>
+
+        </div>
+      </div>
+    </div>
+  </div>
+</section> -->
+
+<!-- <div class="container">
   <div class="col-lg-7">
     <img class="img-fluid img-thumbnail" src="{{game.background_image}}" alt="">
     <h3>{{game.gameTitle}}</h3>
     <p>{{game.description}}</p>
   </div>
-  <app-create-team></app-create-team>
+  <app-create-team [gameTitle]="gameTitle"></app-create-team>
   <hr/>
-</div>
+</div> -->

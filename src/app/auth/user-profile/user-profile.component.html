@@ -1,28 +1,143 @@
 <div class="container">
-    <div>
-      Welcome <b>{{name}}</b>.<br /> You have created <b>{{teamLength}}</b> teams and commented
-      <b>{{commentLength}}</b> time(s).
-      You can check your Team and comment history below.
-    </div>
-    <hr />
-    <div>
-      Your Teams:
-    </div>
-    <app-team-tile [teams]="teams"></app-team-tile>
-    <hr />
-    <div>
-      Your Comments:
-    </div>
-    <div *ngFor="let comment of comments">
-      <div class="comment">
-        <div class="username">
-          <a routerLink="/user/comment.username">{{comment.username}}</a>
+
+    <div class="row">
+        <div class="col-md-4 mb30">
+            <div class="card">
+
+                <div class="card-content pt20 pb20 profile-header">
+                    <img src="https://bootdey.com/img/Content/avatar/avatar6.png" alt="" class="img-fluid rounded-circle">
+                    <h4 class="card-title text-center mb20">{{name.toUpperCase()}}</h4>
+                    <hr>
+                    <div class="row">
+                        <div class="col-md-3 mb20">
+                            <h6 style="text-align: center;">{{profile.joinedDate | date}}</h6>
+                            <h6 style="text-align: center;" class="text-small text-muted">Joined</h6>
+                        </div>
+                        <div class="col-md-3 mb20">
+                            <h6 style="text-align: center;">{{profile.games?.length}}</h6>
+                            <h6 style="text-align: center;" class="text-small text-muted">Games Collected</h6>
+                        </div>
+                        <div class="col-md-3 mb20">
+                            <h6 style="text-align: center;">{{profile.teams?.length}}</h6>
+                            <h6 style="text-align: center;" class="text-small text-muted">Teams Lead</h6>
+                        </div>
+                        <div class="col-md-3 mb20">
+                            <h6 style="text-align: center;">{{profile.joinedTeams?.length}}</h6>
+                            <h6 style="text-align: center;" class="text-small text-muted">Teams Joined</h6>
+                        </div>
+                    </div>
+                    <hr>
+                </div>
+            </div>
         </div>
-        <div>
-          <p>{{comment.duration}}</p>
+        <div class="col-md-8 mb30">
+            <div class="card">
+                <div id="tabs" #tabs>
+
+                    <!-- Nav tabs -->
+                    <ul class="nav nav-pills">
+                      <li class="nav-item">
+                        <a class="nav-link active" href="#t1" [ngClass]="{ 'active':activeTab==='t1'}" (click)="toggle1('t1', $event)"
+                           data-toggle="tab">Games</a>
+                      </li>
+                      <li class="nav-item">
+                        <a class="nav-link" href="#t2" [ngClass]="{ 'active':activeTab==='t2'}"
+                           (click)="toggle2('t2', $event)">Teams</a>
+                      </li>
+                      <li class="nav-item">
+                        <a class="nav-link" href="#t3" [ngClass]="{ 'active':activeTab==='t3'}"
+                           (click)="toggle3('t3', $event)">Joined</a>
+                      </li>
+                      <li class="nav-item">
+                        <a class="nav-link" href="#t3" [ngClass]="{ 'active':activeTab==='t4'}"
+                           (click)="toggle4('t4', $event)">Comments</a>
+                      </li>
+                    </ul>
+
+                    <!-- Tab panes -->
+                    <div class="tab-content admin-tab-content pt30">
+                        <div role="tabpanel" class="tab-pane active show" id="t1" [ngClass]="{ 'active':activeTab==='t1'}">
+                            <ul class="activity-list list-unstyled" *ngFor="let game of profile.games">
+                                <li class="clearfix">
+                                    <div class="float-left">
+                                        <a href="#"><img src="https://bootdey.com/img/Content/avatar/avatar6.png" alt="" class="img-fluid rounded-circle"></a>
+                                    </div>
+                                    <div class="act-content">
+                                        <div class="font400">
+
+                                            Followed <a href="view-game/{{game.gameId}}" class="font600">{{game.gameTitle}}</a>
+                                        </div>
+                                        <img src="{{game.background_image}}" alt="" class="img-thumbnail">
+                                    </div>
+                                </li>
+                            </ul>
+                        </div>
+                        <div role="tabpanel" class="tab-pane" id="t2" [ngClass]="{ 'active':activeTab==='t2'}">
+                            <ul class="activity-list list-unstyled" *ngFor="let team of profile.teams">
+                                <li class="clearfix">
+                                    <div class="float-left">
+                                        <a href="#"><img src="{{team.background_image}}" alt="" class="img-fluid rounded-circle"></a>
+                                    </div>
+                                    <div class="act-content">
+                                        <div class="font400">
+
+                                            Created <a href="view-team/{{team.teamId}}" class="font600">{{team.teamName}}</a>
+
+                                        </div>
+                                        <span class="text-small">{{team.createdDate | date}}</span>
+                                        <div class="mb10">
+                                            <span class="label label-default">Team Size: {{team.teamSize}}</span><br>
+                                            <span class="label label-default">Players Joined: {{team.teamMembers.length}}</span>
+                                        </div>
+                                    </div>
+                                </li>
+                            </ul>
+                        </div>
+                          <div role="tabpanel" class="tab-pane" id="t3" [ngClass]="{ 'active':activeTab==='t3'}">
+                              <ul class="activity-list list-unstyled" *ngFor="let joined of profile.joinedTeams">
+                                <li class="clearfix">
+                                  <div class="float-left">
+                                      <a href="#"><img src="{{joined.background_image}}" alt="" class="img-fluid rounded-circle"></a>
+                                  </div>
+                                  <div class="act-content">
+                                      <div class="font400">
+
+                                          Joined <a href="view-team/{{joined.teamId}}" class="font600">{{joined.teamName}}</a>
+
+                                      </div>
+                                      <span class="text-small">{{joined.createdDate | date}}</span>
+                                      <div class="mb10">
+                                          <span class="label label-default">Game: {{joined.gameTitle}}</span><br>
+                                          <span class="label label-default">Team Size: {{joined.teamSize}}</span><br>
+                                      </div>
+                                  </div>
+                              </li>
+                              </ul>
+                          </div>
+                          <div role="tabpanel" class="tab-pane" id="t4" [ngClass]="{ 'active':activeTab==='t4'}">
+                              <ul class="activity-list list-unstyled" *ngFor="let comment of profile.comments">
+                                  <li class="clearfix">
+                                      <div class="float-left">
+                                          <a href="#"><img src="" alt="" class="img-fluid rounded-circle"></a>
+                                      </div>
+                                      <div class="act-content">
+                                          <div class="font400">
+  
+                                              Commented On <a href="view-team/{{comment.teamId}}" class="font600">{{comment.teamName}}</a>
+  
+                                          </div>
+                                          <span class="text-small">{{comment.createdDate | date }}</span>
+                                          <div class="mb10">
+                                              <span class="label label-default">{{comment.text}}</span><br>
+                                          </div>
+                                      </div>
+                                  </li>
+                              </ul>
+                          </div>
+                        </div>
+                    </div>
+
+                </div>
+            </div>
         </div>
-        <b>{{comment.text}}</b>
-      </div>
-      <hr />
     </div>
-  </div>

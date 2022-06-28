@@ -1,0 +1,38 @@
+<section class="showcase" *ngIf="!isLoggedIn">
+    <header>
+      <h2 class="logo">Group Up</h2>
+    </header>
+    <video src="../../assets/layout/background.mp4" muted loop autoplay></video>
+    <div class="overlay"></div>
+    <div class="text">
+      <h2>Find Your Group</h2> 
+      <h3>Conquer Your Foes</h3>
+      <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod
+      tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam,
+      quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo
+      consequat.</p>
+      <a href="login">Login</a>
+      <a href="sign-up" class="mx-2">Sign Up</a>
+    </div>
+  </section>
+
+
+
+<!-- <div class="home-landing-page" >
+    <div class="container col-xl-10 col-xxl-8 px-4 py-5" >
+        <div class="row align-items-center g-lg-5 py-5">
+            <div class="col-lg-7 text-center text-lg-start hero">
+                <h1 class="display-4 fw-bold lh-1 mb-3">Group Up</h1>
+                <p class="col-lg-10 fs-4">Find teammates for your favorite games, share your thoughts, and learn new strategies. Group up is a website designed to help you find your next team.</p>
+                <div *ngIf="check"><button class="btn btn-primary" (click)="swap()">Login</button></div>
+                <div *ngIf="!check"><button class="btn btn-primary" (click)="swap()">Signup</button></div>
+            </div>
+            <div class="col-md-10 mx-auto col-lg-5" *ngIf="check">
+                <app-signup></app-signup>
+            </div>
+            <div class="col-md-10 mx-auto col-lg-5" *ngIf="!check">
+                <app-login></app-login>
+            </div>
+        </div>
+    </div>
+    </div> -->

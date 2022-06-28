@@ -1,17 +1,58 @@
-<section class="mt-3">
-    <div class="container">
-        <div class="row" >
-            <div class="col-md-3 my-3" *ngFor="let game of games">
-                <div class="card shadow">
-                    <img src="{{game.background_image}}" alt="" class="img-fluid">
-                    <div class="card-body">
-                        <p class="h3">{{game.gameTitle}}</p>
-                        <!-- <small class="description">{{game.description}}</small> -->
-                        <a href="/view-game/{{game.gameId}}" class="btn btn-danger btn-sm">View Game</a >
-                        <a href="/" (click)="followGame(game)" class="btn btn-danger btn-sm float-end">Follow Game</a >
+<div class="container">
+    <div class="row">
+        <div class="col-md-2 mb30"></div>
+        <div class="col-md-8 mb30">
+            <div class="card">
+                <div id="tabs" #tabs>
+                <!-- Tab panes -->
+                    <div class="tab-content admin-tab-content py0" *ngFor="let game of games" >
+                        <div role="tabpanel" class="tab-pane active show" id="all" [ngClass]="{ 'active':activeTab==='all'}" >
+                            <ul class="activity-list list-unstyled">
+                                <li class="clearfix">
+                                    <div class="act-content">
+                                        <div class="font400">
+                                            Game Title: <a href="profile/{{game.gameId}}" class="font600">{{game.gameTitle}}</a>
+                                        </div>
+                                        <p>{{game.description.length > 30 ? (game.description | slice: 0:70) + '...':(game.description)}}</p>
+                                        <img src="{{game.background_image}}" alt="" class="img-thumbnail">
+                                        <a href="/view-game/{{game.gameId}}" class="btn btn-primary">View Game</a>
+                                        <button (click)="followGame(game)" class="btn btn-primary">Save Game</button>
+                                    </div>
+                                </li>
+                            </ul>
+                        </div>
                     </div>
                 </div>
             </div>
         </div>
     </div>
-</section>
+</div>
+
+
+<!-- <section class="mt-3">
+    <div class="container">
+        <div class="row" >
+            <div class="col-md-3 my-3" *ngFor="let game of games">
+                <div class="card">
+                    <div class="bg-image hover-overlay ripple" data-mdb-ripple-color="light">
+                      <img
+                        src="{{game.background_image}}"
+                        class="img-fluid"
+                      />
+                      <a href="#!">
+                        <div class="mask" style="background-color: rgba(251, 251, 251, 0.15);"></div>
+                      </a>
+                    </div>
+                    <div class="card-body">
+                      <h5 class="card-title">{{game.gameTitle}}</h5>
+                      <p class="card-text">
+                        {{game.description.length > 30 ? (game.description | slice: 0:70) + '...':(game.description)}}
+                      </p>
+                      <a href="/view-game/{{game.gameId}}" class="btn btn-primary">View Game</a>
+                      <button (click)="followGame(game)" class="btn btn-primary">Save Game</button>
+                    </div>
+                  </div>
+            </div>
+        </div>
+    </div>
+</section> -->

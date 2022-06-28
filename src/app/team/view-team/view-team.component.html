@@ -1,10 +1,195 @@
 <div class="container">
+  <div class="row">
+    <div class="col-md-4 mb30">
+      <div class="card">
+        <div class="card-content pt20 pb20 profile-header">
+          <img src="{{team.background_image}}" alt="" class="img-fluid">
+          <h4 class="card-title text-center mb20">{{team.teamName.toUpperCase()}}</h4>
+          <hr>
+          <div class="row">
+            <div class="col-md-3 mb20">
+              <h6 style="text-align: center;">{{team.gameTitle}}</h6>
+              <h6 style="text-align: center;" class="text-small text-muted">Game</h6>
+            </div>
+            <div class="col-md-3 mb20">
+              <h6 style="text-align: center;">{{team.createdDate | date}}</h6>
+              <h6 style="text-align: center;" class="text-small text-muted">Created</h6>
+            </div>
+            <div class="col-md-3 mb20">
+              <h6 style="text-align: center;">{{team.teamMembers.length}}</h6>
+              <h6 style="text-align: center;" class="text-small text-muted">Team Members</h6>
+            </div>
+            <div class="col-md-3 mb20">
+              <h6 style="text-align: center;">{{team.teamLeader.toUpperCase()}}</h6>
+              <h6 style="text-align: center;" class="text-small text-muted">Leader</h6>
+            </div>
+          </div>
+          <hr>
+          <button (click)="joinTeam()" type="submit" class="btn btn-primary">Join Team</button>
+        </div>
+      </div>
+    </div>
+    <div class="col-md-8 mb30">
+      <div class="card">
+        <div id="tabs" #tabs>
+          <ul class="nav nav-pills">
+            <li class="nav-item">
+              <a class="nav-link" href="#comments" [ngClass]="{ 'active':activeTab==='comments'}"
+                (click)="toggleComments('comments', $event)">Comments</a>
+            </li>
+            <li class="nav-item">
+              <a class="nav-link" href="#team" [ngClass]="{ 'active':activeTab==='team'}"
+                (click)="toggleTm('team', $event)">Team Members</a>
+            </li>
+          </ul>
+          <div class="tab-content admin-tab-content py0"  >
+            <div role="tabpanel" class="tab-pane active show" id="comments" [ngClass]="{ 'active':activeTab==='comments'}" >
+              <div class="card-body p-4 text-black">
+                <div class="d-flex justify-content-between align-items-center mb-4">
+                  <p class="lead fw-normal mb-0">Post Comment</p>
+                </div>
+                <div class="row g-2" >
+                  <div class="col-md-6 team-comment" >
+                    <form [formGroup]="commentForm" (ngSubmit)="teamComment()">
+                      <div class="form-group">
+                        <textarea class="form-control" [formControlName]="'text'" placeholder="Wanna Play?"></textarea>
+                      </div>
+                      <button type="submit" class="login float-right">Comment</button>
+                    </form>
+                  </div>
+                </div>
+              </div>
+              <ul class="activity-list list-unstyled" *ngFor="let comment of comments" >
+                <li class="clearfix" id="{{comment.id}}" >
+                  <div class="act-content">
+                    <div class="font400">
+                      <a class="font600" href="profile/{{comment.userName}}" class="font600">{{comment.userName}}</a>
+                    </div>
+                    <div class="font400">{{comment.text}}</div>
+                    <span class="text-small">{{comment.createdDate | date}}</span>
+                  </div>
+                  <button *ngIf="!edit && comment.userName === username" (click)="deleteComment(comment)" class="btn btn-danger">Delete</button>
+                  <button *ngIf="!edit && comment.userName === username" (click)="editThis(comment)" class="btn btn-danger" >Edit</button>
+                  <div *ngIf="edit && activeComment === comment">
+                    <div class="row g-2">
+                      <div class="col-md-6 team-comment" >
+                        <form [formGroup]="commentForm" (ngSubmit)="editComment(comment)">
+                          <div class="form-group">
+                            <textarea class="form-control" [formControlName]="'text'" placeholder="Wanna Play?"></textarea>
+                          </div>
+                          <button type="submit" class="login float-right">Update</button>
+                        </form>
+                      </div>
+                    </div>
+                  </div>
+                </li>
+              </ul>
+            </div>
+            <div role="tabpanel" class="tab-pane active" id="team" [ngClass]="{ 'active':activeTab==='team'}" >
+              <ul class="activity-list list-unstyled" *ngFor="let member of members " >
+                <li class="clearfix">
+                  <div class="act-content">
+                    <div class="font400">
+                      <a href="view-profile/{{member.username}}" class="font600">{{member.username}}</a>
+                    </div>
+                  </div>
+                </li>
+              </ul>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- <section class="h-100 gradient-custom-2">
+  <div class="container py-2 h-100">
+    <div class="row d-flex justify-content-center align-items-center h-100">
+      <div class="col">
+        <div class="card">
+          <div class="rounded-top text-white d-flex flex-row" style="background-color: #000; height:200px;">
+            <div class="ms-3" style="margin-top: 150px;">
+              <h5>{{team.teamName.toUpperCase()}}</h5>
+            </div>
+          </div>
+          <div class="p-4 text-black" style="background-color: #f8f9fa;">
+            <div class="d-flex justify-content-end text-center py-1">
+              <div>
+                <p class="mb-1 h5">{{team.teamMembers.length}}</p>
+                <p class="small text-muted mb-0">Members Joined</p>
+              </div>
+              <div class="px-3">
+                <p class="mb-1 h5">{{team.gameTitle}}</p>
+                <p class="small text-muted mb-0">Game</p>
+              </div>
+              <div>
+                <p class="mb-1 h5">{{team.teamSize}}</p>
+                <p class="small text-muted mb-0">Team Size</p>
+              </div>
+            </div>
+          </div>
+          <button (click)="joinTeam()" class="btn btn-primary">Join Team</button>
+          <div class="card-body p-4 text-black">
+            <div class="d-flex justify-content-between align-items-center mb-4">
+              <p class="lead fw-normal mb-0">Forum</p>
+            </div>
+            <div class="row g-2">
+              
+              <div class="col-md-3 my-3" *ngFor="let comment of comments">
+                <div class="comment mt-4 text-justify float-left" *ngIf="!edit">
+                  <h4>{{comment.username}}</h4>
+                  <span>{{comment.createdDate}}</span>
+                  <br>
+                  <p>{{comment.text}}</p>
+              </div>
+              <button *ngIf="!edit" (click)="deleteComment(comment)" class="btn btn-danger">Delete</button>
+              <button *ngIf="!edit" (click)="editThis()" class="btn btn-danger">Edit</button>
+              <div *ngIf="edit">
+                <div class="row g-2">
+                  <div class="col-md-6 team-comment" >
+                    <form [formGroup]="commentForm" (ngSubmit)="editComment(comment)">
+                      <div class="form-group">
+                        <textarea class="form-control" [formControlName]="'text'" placeholder="Wanna Play?"></textarea>
+                      </div>
+                      <button type="submit" class="login float-right">Update</button>
+                    </form>
+                  </div>
+                </div>
+              </div>
+            </div>
+              
+            </div>
+          </div>
+          <div class="card-body p-4 text-black">
+            <div class="d-flex justify-content-between align-items-center mb-4">
+              <p class="lead fw-normal mb-0">Post Comment</p>
+            </div>
+            <div class="row g-2">
+              <div class="col-md-6 team-comment" >
+                <form [formGroup]="commentForm" (ngSubmit)="teamComment()">
+                  <div class="form-group">
+                    <textarea class="form-control" [formControlName]="'text'" placeholder="Wanna Play?"></textarea>
+                  </div>
+                  <button type="submit" class="login float-right">Comment</button>
+                </form>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section> -->
+
+
+<!-- <div class="container">
       <hr />
       <div class="col-md-12">
         <div class="row team">
           <div class="col-md-12">
             <span>
-              <span class="game-text"><a class="team-url" href="">LFG: {{team.gameTitle}}</a></span>
+              <span class="game-text"><a class="team-url" href="">{{team.gameTitle}}</a></span>
               <span> . posted
                 by              
                 <a class="username" href="">{{team.teamLeader}}</a>
@@ -22,7 +207,7 @@
             <div *ngIf="team.teamMembers.length < team.teamSize">
               <button (click)="joinTeam()">Join Team</button>
             </div>
-            <div class="col-md-6 team-comment" *ngIf="">
+            <div class="col-md-6 team-comment" >
               <form [formGroup]="commentForm" (ngSubmit)="teamComment()">
                 <div class="form-group">
                   <textarea class="form-control" [formControlName]="'text'" placeholder="Wanna Play?"></textarea>
@@ -36,7 +221,7 @@
                   <a routerLink="/user/comment.username">{{comment.username}}</a>
                 </div>
                 <div>
-                  <p>{{comment.duration}}</p>
+                  <p>{{comment.createdDate | date:'shortDate' | date: 'HH:mm:ss'}}</p>
                 </div>
                 <b>{{comment.text}}</b>
               </div>
@@ -47,4 +232,4 @@
           </div>
         </div>
       </div>
-    </div>
+    </div> -->

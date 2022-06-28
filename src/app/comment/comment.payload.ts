@@ -1,7 +1,8 @@
 export class CommentPayload{
+    id?: number;
     text: string;
     teamId?: number;
-    username?:string;
-    gameId?:number;
-    duration?: string;
+    userName?:string;
+    createdDate?: Date;
+    teamName?:string;
 }

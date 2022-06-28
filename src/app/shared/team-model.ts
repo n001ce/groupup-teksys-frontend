@@ -6,6 +6,7 @@ export class TeamModel {
     teamLeader: string;
     console: string;
     gameTitle: string;
+    background_image: string;
     teamSize: number;
     commentCount: number;
     duration: string;

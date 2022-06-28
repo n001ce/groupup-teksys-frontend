@@ -1,0 +1,26 @@
+@import url('https://fonts.googleapis.com/css2?family=Press+Start+2P&display=swap');
+
+h1, p{
+    color: white;
+}
+
+.home-landing-page{
+    background: url('background.jpg') no-repeat center center fixed; 
+    -webkit-background-size: cover;
+    -moz-background-size: cover;
+    -o-background-size: cover;
+    background-size: cover;
+    height: 100vh;
+}
+
+h1{
+    font-family: 'Press Start 2P', cursive;
+}
+
+*{
+    background-color: hwb(214 14% 83%);
+}
+
+.groupup-body{
+    height: 100vh;
+}

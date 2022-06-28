@@ -5,15 +5,19 @@ import { GameService } from '../game/game.service';
 import { TeamModel } from '../shared/team-model';
 import { TeamService } from '../shared/team.service';
 
+
 @Component({
   selector: 'app-home',
   templateUrl: './home.component.html',
   styleUrls: ['./home.component.css']
 })
+
+
 export class HomeComponent implements OnInit {
   isLoggedIn: boolean;
   teams: Array<TeamModel>=[];
-  games: Array<GameModel> = [];
+  games: GameModel[]
+  check: boolean;
 
   constructor(private teamService: TeamService, private authService: AuthService, private gameService: GameService) {
     this.isLoggedIn = this.authService.isLoggedIn();
@@ -21,11 +25,16 @@ export class HomeComponent implements OnInit {
       this.teams = team;
     })
     this.gameService.getAllGames().subscribe(game=>{
-      this.games = game;
+      this.games = game.splice(0,4)
     })
    }
 
   ngOnInit(): void {
+    this.check=false;
   }
 
+  swap(){
+    this.check= !this.check;
+    console.log(this.check)
+  }
 }

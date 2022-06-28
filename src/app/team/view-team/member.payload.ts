@@ -1,4 +1,4 @@
 export class Member {
-    username?: string;
-    url?: string;
+    username: string;
+    url: string;
 }

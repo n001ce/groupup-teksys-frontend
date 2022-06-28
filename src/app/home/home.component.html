@@ -1,15 +1,57 @@
 <div class="groupup-body">
-    <div class="col">
         <div class="row">
-            <hr/>
-            <div class="col-md-3">
-                <app-side-bar ></app-side-bar>
-                <h3>Teams</h3>
-                <app-team-tile [teams]="teams"></app-team-tile>
-            </div>
-            <div class="col-md-8" >
-                <app-list-games ></app-list-games>
+            <div class="col-md-8 offset-md-2" >
+                <div class="row">
+                <h1>Top Games</h1>
+                <div class="col-md-3 my-3" *ngFor="let game of games">
+                    <div class="card">
+                        <div class="bg-image hover-overlay ripple" data-mdb-ripple-color="light">
+                          <img
+                            src="{{game.background_image}}"
+                            class="img-fluid"
+                          />
+                          <a href="#!">
+                            <div class="mask" style="background-color: rgba(251, 251, 251, 0.15);"></div>
+                          </a>
+                        </div>
+                        <div class="card-body">
+                          <h5 class="card-title">{{game.gameTitle}}</h5>
+                          <p class="card-text">
+                            {{game.description.length > 30 ? (game.description | slice: 0:70) + '...':(game.description)}}
+                          </p>
+                          <a href="/view-game/{{game.gameId}}" class="btn btn-primary">View Game</a>
+                        </div>
+                      </div>
+                </div>
             </div>
         </div>
-    </div>
+        <div class="row">
+            
+            <div class="col-md-8 offset-md-2" >
+                <div class="row">
+                <h1>Top Teams</h1>
+                <div class="col-md-3 my-3" *ngFor="let team of teams">
+                    <div class="card">
+                        <div class="bg-image hover-overlay ripple" data-mdb-ripple-color="light">
+                          <img
+                          src=""
+                          class="img-fluid"
+                          />
+                          <a href="#!">
+                            <div class="mask" style="background-color: rgba(251, 251, 251, 0.15);"></div>
+                          </a>
+                        </div>
+                        <div class="card-body">
+                          <h5 class="card-title" style="color:white">{{team.teamName}}</h5>
+                          <p class="card-text">
+                            posted by: {{team.teamLeader}}<br>team size : {{team.teamMembers.length}}<br>needed: {{team.teamSize - team.teamMembers.length}}
+                          </p>
+                          <a href="/view-team/{{team.teamId}}" class="btn btn-primary">View Team</a>
+                        </div>
+                      </div>
+                </div>
+            </div>
+        </div>
+        </div>
+   
 </div>
